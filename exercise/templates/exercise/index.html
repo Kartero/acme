@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Harjoitukset{% endblock %}
+
+{% block content %}
+<h1>Harjoitukset</h1>
+
+<table class="table table-striped table-hover">
+    <tr>
+        <th>Päiväys</th>
+        <th>Laji</th>
+        <th>Arvo</th>
+    </tr>
+    {% for action in actions %}
+        <tr>
+            <td>{{ action.date }}</td>
+            <td>{{ action.sport }}</td>
+            <td>{{ action.value }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+{% endblock %}
+
+{% block left-sidebar %}
+<h4>Lisää uusi harjoitus</h4>
+<form action="{% url 'exercise:add' %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+        {% for field in action_form %}
+            <div class="mb-3">
+                <label for="{{ field.html_name }}" class="form-label">{{ field.label }}</label>
+                
+                {{ field }}
+            </div>
+        {% endfor %}
+    </fieldset>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}
