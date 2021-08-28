@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from .models import Action
 from .models import Sport
 from .forms import ActionForm
@@ -16,12 +17,11 @@ def index(request):
     return render(request, 'exercise/index.html', context)
 
 def add(request):
-    pass
-    """
+
     if request.method == 'POST':
         form = ActionForm(request.POST)
         if form.is_valid():
+            action = form.save()
 
-    try:
-        Action.save
-    """
+    return HttpResponseRedirect('/exercise')
+
